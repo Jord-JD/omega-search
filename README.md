@@ -18,7 +18,7 @@ composer require jord-jd/omega-search
 Using Omega Search is easy. Take a look at the following example.
 
 ```php
-use \DivineOmega\OmegaSearch\OmegaSearch;
+use \JordJD\OmegaSearch\OmegaSearch;
 
 // Setup your database connection. 
 // If you already have a connection setup, you can skip this step.
@@ -49,11 +49,11 @@ Each `SearchResult` object in the array provides the primary key `id` and its `r
 simply a number that is higher on more relevant results. The array is sorted by relevance descending.
 
 ```php
-object(DivineOmega\OmegaSearch\SearchResults)#731 (5) {
+object(JordJD\OmegaSearch\SearchResults)#731 (5) {
   ["results"]=>
   array(10) {
     [0]=>
-    object(DivineOmega\OmegaSearch\SearchResult)#588 (2) {
+    object(JordJD\OmegaSearch\SearchResult)#588 (2) {
       ["id"]=>
       int(80)
       ["relevance"]=>
@@ -61,7 +61,7 @@ object(DivineOmega\OmegaSearch\SearchResults)#731 (5) {
     }
     /** ... snipped ... */
     [9]=>
-    object(DivineOmega\OmegaSearch\SearchResult)#597 (2) {
+    object(JordJD\OmegaSearch\SearchResult)#597 (2) {
       ["id"]=>
       int(18469)
       ["relevance"]=>
@@ -86,7 +86,7 @@ If you wish to write your own SQL query instead of using the one generated, for 
 Take a look at the following example:
 
 ```php
-use \DivineOmega\OmegaSearch\OmegaSearch;
+use \JordJD\OmegaSearch\OmegaSearch;
 
 // Setup your database connection. 
 // If you already have a connection setup, you can skip this step.

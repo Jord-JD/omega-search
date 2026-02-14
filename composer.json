@@ -9,14 +9,14 @@
     }
   ],
   "require": {
-    "divineomega/uxdm": "^3.5.4",
+    "jord-jd/uxdm": "^6.0",
     "illuminate/support": ">=5.1",
     "psr/cache": "^1.0",
     "ext-pdo": "*"
   },
   "autoload": {
     "psr-4": {
-      "DivineOmega\\OmegaSearch\\": "src/"
+      "JordJD\\OmegaSearch\\": "src/"
     }
   },
   "license": "LGPL-3.0-only",

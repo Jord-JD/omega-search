@@ -1,8 +1,8 @@
 <?php
 
-namespace DivineOmega\OmegaSearch;
+namespace JordJD\OmegaSearch;
 
-use DivineOmega\OmegaSearch\SearchResult;
+use JordJD\OmegaSearch\SearchResult;
 
 class SearchResults {
 

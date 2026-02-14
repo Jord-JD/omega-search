@@ -1,12 +1,12 @@
 <?php
 
-namespace DivineOmega\OmegaSearch;
+namespace JordJD\OmegaSearch;
 
 use PDO;
 use InvalidArgumentException;
-use DivineOmega\uxdm\Objects\Migrator;
-use DivineOmega\uxdm\Objects\Sources\PDOSource;
-use DivineOmega\uxdm\Objects\Destinations\NullDestination;
+use JordJD\uxdm\Objects\Migrator;
+use JordJD\uxdm\Objects\Sources\PDOSource;
+use JordJD\uxdm\Objects\Destinations\NullDestination;
 
 class MigratorManager {
 
