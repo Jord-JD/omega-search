@@ -1,23 +1,31 @@
 {
-    "name": "divineomega/omega-search",
-    "description": "Search allows you to easily add an intelligent search engine to your website or web application.",
-    "type": "library",
-    "authors": [
-        {
-            "name": "Jordan Hall",
-            "email": "jordan@hall05.co.uk"
-        }
-    ],
-    "require": {
-        "DivineOmega/uxdm": "^3.5.4",
-        "illuminate/support": ">=5.1",
-        "psr/cache": "^1.0",
-        "ext-pdo": "*"
-    },
-    "autoload":{
-        "psr-4": {
-            "DivineOmega\\OmegaSearch\\": "src/"
-        }
-    },
-    "license": "LGPL-3.0-only"
+  "name": "jord-jd/omega-search",
+  "description": "Search allows you to easily add an intelligent search engine to your website or web application.",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Jordan Hall",
+      "email": "jordan@hall05.co.uk"
+    }
+  ],
+  "require": {
+    "DivineOmega/uxdm": "^3.5.4",
+    "illuminate/support": ">=5.1",
+    "psr/cache": "^1.0",
+    "ext-pdo": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "DivineOmega\\OmegaSearch\\": "src/"
+    }
+  },
+  "license": "LGPL-3.0-only",
+  "replace": {
+    "divineomega/omega-search": "self.version"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "5.0-dev"
+    }
+  }
 }

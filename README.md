@@ -3,14 +3,14 @@
 Omega Search allows you to easily add an intelligent search engine to your website or web application. 
 It can be configured to search any database table.
 
-If you are using the Laravel framework, take a look at the [Laravel Omega Search](https://github.com/DivineOmega/laravel-omega-search) package.
+If you are using the Laravel framework, take a look at the [Laravel Omega Search](https://github.com/Jord-JD/laravel-omega-search) package.
 
 ## Installation
 
 You can install this package with Composer.
 
 ```
-composer require divineomega/omega-search
+composer require jord-jd/omega-search
 ```
 
 ## Usage
