@@ -13,7 +13,7 @@ class OmegaSearch {
     private $table;
     private $primaryKey;
     private $fields = [];
-    private $conditions;
+    private $conditions = [];
     private $cacheItemPool;
     private $cacheExpiresAfter;
     private $sqlOverride;
@@ -55,6 +55,10 @@ class OmegaSearch {
     }
 
     private function sanityCheck() {
+        if (!$this->pdo) {
+            throw new InvalidArgumentException('No database connection specified. You must provide a PDO connection.');
+        }
+
         if (!$this->table) {
             throw new InvalidArgumentException('No table specified. You must specify a table to search.');
         }
@@ -71,7 +75,7 @@ class OmegaSearch {
             $this->fields[] = $this->primaryKey;
         }
 
-        foreach($this->conditions as $fieldName => $value) {
+        foreach ($this->conditions as $fieldName => $value) {
             if (!in_array($fieldName, $this->fields)) {
                 $this->fields[] = $fieldName;
             }
@@ -109,7 +113,18 @@ class OmegaSearch {
 
         $this->sanityCheck();
 
-        $terms = $this->buildSearchTerms($term);
+        if (!is_int($limit) || $limit < 0) {
+            throw new InvalidArgumentException('The result limit must be a non-negative integer.');
+        }
+
+        if (!is_scalar($term) || trim((string) $term) === '') {
+            $searchResults = new SearchResults;
+            $searchResults->time = microtime(true) - $startMicrotime;
+
+            return $searchResults;
+        }
+
+        $terms = $this->buildSearchTerms((string) $term);
 
         $results = [];
 
@@ -117,11 +132,18 @@ class OmegaSearch {
         $migrator = $migratorManager->createMigrator($this->sqlOverride);
 
         if ($this->cacheItemPool && $this->cacheExpiresAfter) {
-            $cacheKey = sha1(serialize([$this->pdo->getAttribute(PDO::ATTR_CONNECTION_STATUS), $this->table, $this->fields]));
+            $cacheKey = sha1(serialize([
+                spl_object_hash($this->pdo),
+                $this->table,
+                $this->primaryKey,
+                $this->fields,
+                $this->conditions,
+                $this->sqlOverride,
+            ]));
             $migrator->setSourceCache($this->cacheItemPool, $cacheKey, $this->cacheExpiresAfter);
         }
 
-        $migrator->setDataRowManipulator(function($dataRow) use ($terms, &$results) {
+        $migrator->addTransformer(new CallbackTransformer(function ($dataRow) use ($terms, &$results) {
 
             foreach($this->conditions as $fieldName => $value) {
                 $dataItem = $dataRow->getDataItemByFieldName($fieldName);
@@ -140,7 +162,11 @@ class OmegaSearch {
                     continue;
                 }
 
-                $value = strtolower($dataItem->value);
+                if (!is_scalar($dataItem->value) && $dataItem->value !== null) {
+                    continue;
+                }
+
+                $value = strtolower((string) $dataItem->value);
 
                 if (strlen($value) < strlen($terms[0])) {
                     continue;
@@ -168,7 +194,7 @@ class OmegaSearch {
             
             $results[$primaryKeyValue] = $relevance;
 
-        });
+        }));
 
         $migrator->migrate();
 
