@@ -190,6 +190,10 @@ class OmegaSearch {
 
             }
 
+            if ($relevance <= 0) {
+                return;
+            }
+
             $primaryKeyValue = $dataRow->getDataItemByFieldName($this->primaryKey)->value;
             
             $results[$primaryKeyValue] = $relevance;
