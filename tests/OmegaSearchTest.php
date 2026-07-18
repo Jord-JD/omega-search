@@ -35,6 +35,6 @@ class OmegaSearchTest extends TestCase
     public function testBlankSearchReturnsNoResults()
     {
         $this->assertCount(0, $this->search()->query('   '));
-        $this->assertCount(0, $this->search()->query('qqqqqq'));
+        $this->assertCount(0, $this->search()->query('zzzzzz'));
     }
 }
