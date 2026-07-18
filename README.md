@@ -3,6 +3,8 @@
 Omega Search allows you to easily add an intelligent search engine to your website or web application. 
 It can be configured to search any database table.
 
+Supports PHP 7.1 through current PHP releases and Illuminate 5.1 through 13. Empty search text now returns an empty result set, non-text database values are skipped safely, and `SearchResults` can be counted, iterated, or JSON-encoded directly.
+
 If you are using the Laravel framework, take a look at the [Laravel Omega Search](https://github.com/Jord-JD/laravel-omega-search) package.
 
 ## Installation
@@ -39,6 +41,15 @@ $results = $search->query('test product', 10);
 
 // Output results
 var_dump($results);
+```
+
+```php
+echo count($results);
+echo json_encode($results);
+
+foreach ($results as $result) {
+    echo $result->id.' '.$result->relevance.PHP_EOL;
+}
 ```
 
 The results are returned as a `SearchResults` object, as shown below, containing an array of `SearchResult` objects.

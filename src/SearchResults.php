@@ -4,7 +4,7 @@ namespace JordJD\OmegaSearch;
 
 use JordJD\OmegaSearch\SearchResult;
 
-class SearchResults {
+class SearchResults implements \Countable, \IteratorAggregate, \JsonSerializable {
 
     public $results = [];
     public $highestRelevance = null;
@@ -38,6 +38,24 @@ class SearchResults {
         }
 
         $this->averageRelevance = array_sum($relevances) / count($this->results);
+    }
+
+    public function count(): int {
+        return count($this->results);
+    }
+
+    public function getIterator(): \Traversable {
+        return new \ArrayIterator($this->results);
+    }
+
+    public function jsonSerialize() {
+        return [
+            'results' => $this->results,
+            'highestRelevance' => $this->highestRelevance,
+            'lowestRelevance' => $this->lowestRelevance,
+            'averageRelevance' => $this->averageRelevance,
+            'time' => $this->time,
+        ];
     }
 
 }
